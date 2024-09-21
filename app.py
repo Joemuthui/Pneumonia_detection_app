@@ -11,9 +11,20 @@ from torchvision import models
 resnet_50=models.resnet50(weights=None)
 model = Custom_Resnet(resnet_50)
 
-model.load_state_dict(torch.load('C:/Users/jmwacira/Documents/Pneumonia_web/pneumonia_detection/model_repo/resnet50_trial_1.pth', map_location='cpu'))
+model.load_state_dict(torch.load('model_repo/resnet50_trial_1.pth', map_location='cpu'))
 model.eval()
 
+page_bg="""
+<style>
+{
+primaryColor='#F63366'
+backgroundColor='#FFFFFF'
+secondaryBackgroundColor='#F0F2F6'
+textColor='#262730'
+font='sans serif'}
+</style>
+"""
+st.markdown(page_bg, unsafe_allow_html=True)
 # Grad-CAM utilities
 def generate_gradcam(model, image_t):
     img = image_t.requires_grad_()
