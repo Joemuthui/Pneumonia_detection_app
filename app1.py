@@ -63,7 +63,7 @@ color_map = {
     "Consolidation": "#ffc107", # Amber
     "Infiltration": "#dc3545"   # Red
 }
-class_labels = ['Normal', 'Consolidation', 'Infiltration']
+# class_labels = ['Normal', 'Consolidation', 'Infiltration']
 
 # --- Grad-CAM ---
 def generate_gradcam(model, image_t):
@@ -105,59 +105,59 @@ def main():
             prediction_label = ['Normal', 'Consolidation', 'Infiltration'][predicted.item()]
             confidence_value = float(output[0][predicted.item()].item()) * 100
             
-    pred_color = color_map.get(prediction_label, "#17a2b8")  # default = info blue
+            pred_color = color_map.get(prediction_label, "#17a2b8")  # default = info blue
 
-    # Create 3 styled columns
-    col1, col2, col3 = st.columns(3)
-    
-    with col1:
-        st.markdown(
-            f"""
-            <div style="border: 1px solid #444; border-radius: 8px; padding: 15px; text-align: center;">
-                <h4 style="color: #ffffff;">🧾 Prediction</h4>
-                <p style="color: {pred_color}; font-size: 24px; font-weight: bold;">{prediction_label}</p>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-    
-    with col2:
-        st.markdown(
-            f"""
-            <div style="border: 1px solid #444; border-radius: 8px; padding: 15px; text-align: center;">
-                <h4 style="color: #ffffff;">📊 Confidence</h4>
-                <p style="font-size: 24px; font-weight: bold;">{confidence_value:.2f}%</p>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-    
-    with col3:
-        st.markdown(
-            f"""
-            <div style="border: 1px solid #444; border-radius: 8px; padding: 15px;">
-                <h4 style="text-align: center; color: #ffffff;">📈 Score</h4>
-            """,
-            unsafe_allow_html=True
-        )
-        st.progress(confidence_value / 100)
+        # Create 3 styled columns
+        col1, col2, col3 = st.columns(3)
+        
+        with col1:
+            st.markdown(
+                f"""
+                <div style="border: 1px solid #444; border-radius: 8px; padding: 15px; text-align: center;">
+                    <h4 style="color: #ffffff;">🧾 Prediction</h4>
+                    <p style="color: {pred_color}; font-size: 24px; font-weight: bold;">{prediction_label}</p>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+        
+        with col2:
+            st.markdown(
+                f"""
+                <div style="border: 1px solid #444; border-radius: 8px; padding: 15px; text-align: center;">
+                    <h4 style="color: #ffffff;">📊 Confidence</h4>
+                    <p style="font-size: 24px; font-weight: bold;">{confidence_value:.2f}%</p>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+        
+        with col3:
+            st.markdown(
+                f"""
+                <div style="border: 1px solid #444; border-radius: 8px; padding: 15px;">
+                    <h4 style="text-align: center; color: #ffffff;">📈 Score</h4>
+                """,
+                unsafe_allow_html=True
+            )
+            st.progress(confidence_value / 100)
 
-    # --- Grad-CAM ---
-    with st.spinner("🔍 Generating Grad-CAM..."):
-        gradcam = generate_gradcam(model, image_tensor)
-        gradcam_normalized = (gradcam - gradcam.min()) / (gradcam.max() - gradcam.min())
-        heatmap = cv2.applyColorMap(np.uint8(255 * gradcam_normalized), cv2.COLORMAP_JET)
-        heatmap = cv2.cvtColor(heatmap, cv2.COLOR_BGR2RGB)
+        # --- Grad-CAM ---
+        with st.spinner("🔍 Generating Grad-CAM..."):
+            gradcam = generate_gradcam(model, image_tensor)
+            gradcam_normalized = (gradcam - gradcam.min()) / (gradcam.max() - gradcam.min())
+            heatmap = cv2.applyColorMap(np.uint8(255 * gradcam_normalized), cv2.COLORMAP_JET)
+            heatmap = cv2.cvtColor(heatmap, cv2.COLOR_BGR2RGB)
 
-        image_np = np.array(image.resize((224, 224)))
-        overlay = (0.3 * heatmap + image_np).astype(np.uint8)
+            image_np = np.array(image.resize((224, 224)))
+            overlay = (0.3 * heatmap + image_np).astype(np.uint8)
 
-    # --- Layout with columns ---
-    col1, col2 = st.columns(2)
-    with col1:
-        st.image(image_np, caption="Original Chest X-ray", use_column_width=True)
-    with col2:
-        st.image(overlay, caption="🧠 Grad-CAM: Important Regions for Prediction", use_column_width=True)
+        # --- Layout with columns ---
+        col1, col2 = st.columns(2)
+        with col1:
+            st.image(image_np, caption="Original Chest X-ray", use_column_width=True)
+        with col2:
+            st.image(overlay, caption="🧠 Grad-CAM: Important Regions for Prediction", use_column_width=True)
 
     st.markdown("---")
     st.info("**Note**: This model is a prototype and should not be used for clinical decision-making.")
