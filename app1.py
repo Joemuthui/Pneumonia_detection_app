@@ -142,25 +142,25 @@ def main():
         )
         st.progress(confidence_value / 100)
 
-        # --- Grad-CAM ---
-        with st.spinner("🔍 Generating Grad-CAM..."):
-            gradcam = generate_gradcam(model, image_tensor)
-            gradcam_normalized = (gradcam - gradcam.min()) / (gradcam.max() - gradcam.min())
-            heatmap = cv2.applyColorMap(np.uint8(255 * gradcam_normalized), cv2.COLORMAP_JET)
-            heatmap = cv2.cvtColor(heatmap, cv2.COLOR_BGR2RGB)
+    # --- Grad-CAM ---
+    with st.spinner("🔍 Generating Grad-CAM..."):
+        gradcam = generate_gradcam(model, image_tensor)
+        gradcam_normalized = (gradcam - gradcam.min()) / (gradcam.max() - gradcam.min())
+        heatmap = cv2.applyColorMap(np.uint8(255 * gradcam_normalized), cv2.COLORMAP_JET)
+        heatmap = cv2.cvtColor(heatmap, cv2.COLOR_BGR2RGB)
 
-            image_np = np.array(image.resize((224, 224)))
-            overlay = (0.3 * heatmap + image_np).astype(np.uint8)
+        image_np = np.array(image.resize((224, 224)))
+        overlay = (0.3 * heatmap + image_np).astype(np.uint8)
 
-        # --- Layout with columns ---
-        col1, col2 = st.columns(2)
-        with col1:
-            st.image(image_np, caption="Original Chest X-ray", use_column_width=True)
-        with col2:
-            st.image(overlay, caption="🧠 Grad-CAM: Important Regions for Prediction", use_column_width=True)
+    # --- Layout with columns ---
+    col1, col2 = st.columns(2)
+    with col1:
+        st.image(image_np, caption="Original Chest X-ray", use_column_width=True)
+    with col2:
+        st.image(overlay, caption="🧠 Grad-CAM: Important Regions for Prediction", use_column_width=True)
 
-        st.markdown("---")
-        st.info("**Note**: This model is a prototype and should not be used for clinical decision-making.")
+    st.markdown("---")
+    st.info("**Note**: This model is a prototype and should not be used for clinical decision-making.")
 
 if __name__ == "__main__":
     main()
