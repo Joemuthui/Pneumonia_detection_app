@@ -17,42 +17,47 @@ st.set_page_config(page_title="PneuSight | Pneumonia Detection", layout="centere
 
 st.markdown("""
     <style>
-    .main {
-        background-color: #f7f9fc;
+    /* Overall background and text */
+    html, body, [class*="css"] {
+        background-color: #0E1117 !important;
+        color: #FAFAFA !important;
     }
+
+    /* Headings */
+    h1, h2, h3, h4, h5, h6 {
+        color: #ffffff !important;
+    }
+
+    /* Centered title */
     .title {
         text-align: center;
-        color: #1f77b4;
+        color: #F63366;
+        font-size: 36px;
+        margin-bottom: 0px;
     }
+
+    /* Buttons */
+    .stButton > button {
+        background-color: #262730;
+        color: #FAFAFA;
+        border: 1px solid #FAFAFA;
+    }
+
+    /* File uploader */
+    .stFileUploader {
+        background-color: #1e1e1e !important;
+    }
+
+    /* Custom class (you can target specific elements this way) */
     .confidence-bar {
         height: 20px;
         border-radius: 10px;
         margin-top: 5px;
+        background-color: #1f77b4;
     }
-    html, body, [class*="css"]  {
-            background-color: #0E1117;
-            color: #FAFAFA;
-        }
-
-        h1, h2, h3, h4, h5, h6 {
-            color: #ffffff;
-        }
-
-        .stButton>button {
-            background-color: #262730;
-            color: #FAFAFA;
-            border: 1px solid #FAFAFA;
-        }
-
-        .stFileUploader {
-            background-color: #1e1e1e;
-        }
-
-        .css-1d391kg {
-            background-color: #1e1e1e;
-        }
     </style>
 """, unsafe_allow_html=True)
+
 
 
 # --- Grad-CAM ---
