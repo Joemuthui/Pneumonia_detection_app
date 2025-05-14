@@ -88,11 +88,11 @@ def main():
 
     with col:
         st.image("pneusight_logo.png", width=200)
-        st.caption("AI-Powered Pneumonia Detection")
+        #st.caption("AI-Powered Pneumonia Detection")
         # st.markdown("<h1 style='text-align: center;'>PneuSight</h1>", unsafe_allow_html=True)
-    st.markdown("<h1 class='title'>🩺 Pneumonia Detection from Chest X-ray</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 class='title'>🩺 AI-Powered Pneumonia Detection Pneumonia Detection</h1>", unsafe_allow_html=True)
 
-    uploaded_file = st.file_uploader("📤 Upload X-ray Image", type=["png", "jpg", "jpeg"])
+    uploaded_file = st.file_uploader("📤 Upload Chest X-ray Image", type=["png", "jpg", "jpeg"])
 
     if uploaded_file:
         image = Image.open(uploaded_file).convert('RGB')
