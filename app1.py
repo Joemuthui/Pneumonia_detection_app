@@ -10,11 +10,10 @@ from custom_model import Custom_Resnet
 # Load the model
 resnet_50 = models.resnet50(weights=None)
 model = Custom_Resnet(resnet_50)
-model.load_state_dict(torch.load(r'C:\Users\jmwacira\Documents\Extra_projects\Pneumonia_web\Pneumonia_Detection\model_repo\resnet50_trial_1.pth', map_location='cpu'))
+model.load_state_dict(torch.load('resnet50_trial_1.pth', map_location='cpu'))
 model.eval()
 
-# --- Styling ---
-st.set_page_config(page_title="Pneumonia Detection", layout="centered")
+st.set_page_config(page_title="PneuSight | Pneumonia Detection", layout="centered")
 
 st.markdown("""
     <style>
@@ -32,6 +31,7 @@ st.markdown("""
     }
     </style>
 """, unsafe_allow_html=True)
+
 
 # --- Grad-CAM ---
 def generate_gradcam(model, image_t):
@@ -52,8 +52,12 @@ def preprocess_image(image):
 
 # --- App Main ---
 def main():
+    col = st.columns(3)[1]  # Center column out of 3
+
+    with col:
+        st.image("pneusight_logo.png", width=200)
+        # st.markdown("<h1 style='text-align: center;'>PneuSight</h1>", unsafe_allow_html=True)
     st.markdown("<h1 class='title'>🩺 Pneumonia Detection from Chest X-ray</h1>", unsafe_allow_html=True)
-    st.write("Upload a chest X-ray image to detect pneumonia caused by consolidation or infiltration.")
 
     uploaded_file = st.file_uploader("📤 Upload X-ray Image", type=["png", "jpg", "jpeg"])
 
