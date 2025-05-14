@@ -102,7 +102,7 @@ def main():
 
         st.markdown(f"### 🧾 **Prediction**: {prediction_label}")
         st.markdown(f"**Confidence:** {confidence:.2f}%")
-        # st.progress(confidence / 100)
+        st.progress(confidence / 100)
 
         # --- Grad-CAM ---
         with st.spinner("🔍 Generating Grad-CAM..."):
