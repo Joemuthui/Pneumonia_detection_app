@@ -98,11 +98,11 @@ def main():
             output = model(image_tensor)
             _, predicted = torch.max(output, 1)
             prediction_label = ['Normal', 'Consolidation', 'Infiltration'][predicted.item()]
-            confidence = 100 * output[0][predicted.item()]
-
+            confidence_value = float(output[0][predicted.item()].item()) * 100
+            
         st.markdown(f"### 🧾 **Prediction**: {prediction_label}")
         st.markdown(f"**Confidence:** {confidence:.2f}%")
-        st.progress(confidence / 100)
+        st.progress(confidence_value / 100)
 
         # --- Grad-CAM ---
         with st.spinner("🔍 Generating Grad-CAM..."):
