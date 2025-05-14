@@ -90,9 +90,9 @@ def main():
         # --- Layout with columns ---
         col1, col2 = st.columns(2)
         with col1:
-            st.image(image_np, caption="Original Chest X-ray", use_container_width=True)
+            st.image(image_np, caption="Original Chest X-ray", use_column_width=True)
         with col2:
-            st.image(overlay, caption="🧠 Grad-CAM: Important Regions for Prediction", use_container_width=True)
+            st.image(overlay, caption="🧠 Grad-CAM: Important Regions for Prediction", use_column_width=True)
 
         st.markdown("---")
         st.info("**Note**: This model is a prototype and should not be used for clinical decision-making.")
