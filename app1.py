@@ -57,8 +57,13 @@ st.markdown("""
     }
     </style>
 """, unsafe_allow_html=True)
-
-
+# Determine color based on prediction
+color_map = {
+    "Normal": "#28a745",         # Green
+    "Consolidation": "#ffc107", # Amber
+    "Infiltration": "#dc3545"   # Red
+}
+class_labels = ['Normal', 'Consolidation', 'Infiltration']
 
 # --- Grad-CAM ---
 def generate_gradcam(model, image_t):
@@ -100,8 +105,41 @@ def main():
             prediction_label = ['Normal', 'Consolidation', 'Infiltration'][predicted.item()]
             confidence_value = float(output[0][predicted.item()].item()) * 100
             
-        st.markdown(f"### 🧾 **Prediction**: {prediction_label}")
-        st.markdown(f"**Confidence:** {confidence_value:.2f}%")
+    pred_color = color_map.get(prediction_label, "#17a2b8")  # default = info blue
+
+    # Create 3 styled columns
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        st.markdown(
+            f"""
+            <div style="border: 1px solid #444; border-radius: 8px; padding: 15px; text-align: center;">
+                <h4 style="color: #ffffff;">🧾 Prediction</h4>
+                <p style="color: {pred_color}; font-size: 24px; font-weight: bold;">{prediction_label}</p>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+    
+    with col2:
+        st.markdown(
+            f"""
+            <div style="border: 1px solid #444; border-radius: 8px; padding: 15px; text-align: center;">
+                <h4 style="color: #ffffff;">📊 Confidence</h4>
+                <p style="font-size: 24px; font-weight: bold;">{confidence_value:.2f}%</p>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+    
+    with col3:
+        st.markdown(
+            f"""
+            <div style="border: 1px solid #444; border-radius: 8px; padding: 15px;">
+                <h4 style="text-align: center; color: #ffffff;">📈 Score</h4>
+            """,
+            unsafe_allow_html=True
+        )
         st.progress(confidence_value / 100)
 
         # --- Grad-CAM ---
