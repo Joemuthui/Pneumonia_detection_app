@@ -55,7 +55,8 @@ def main():
     col = st.columns(3)[1]  # Center column out of 3
 
     with col:
-        st.image("pneusight_logo.png", use_container_width=True)
+        st.image("pneusight_logo.png", width=200)
+        st.caption("AI-Powered Pneumonia Detection")
         # st.markdown("<h1 style='text-align: center;'>PneuSight</h1>", unsafe_allow_html=True)
     st.markdown("<h1 class='title'>🩺 Pneumonia Detection from Chest X-ray</h1>", unsafe_allow_html=True)
 
