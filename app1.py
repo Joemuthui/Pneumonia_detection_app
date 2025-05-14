@@ -101,7 +101,7 @@ def main():
             confidence_value = float(output[0][predicted.item()].item()) * 100
             
         st.markdown(f"### 🧾 **Prediction**: {prediction_label}")
-        st.markdown(f"**Confidence:** {confidence:.2f}%")
+        st.markdown(f"**Confidence:** {confidence_value:.2f}%")
         st.progress(confidence_value / 100)
 
         # --- Grad-CAM ---
