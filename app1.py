@@ -90,7 +90,7 @@ def main():
         st.image("pneusight_logo.png", width=200)
         #st.caption("AI-Powered Pneumonia Detection")
         # st.markdown("<h1 style='text-align: center;'>PneuSight</h1>", unsafe_allow_html=True)
-    st.markdown("<h1 class='title'>🩺 AI-Powered Pneumonia Detection Pneumonia Detection</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 class='title'>🩺 AI-Powered Pneumonia Detection</h1>", unsafe_allow_html=True)
 
     uploaded_file = st.file_uploader("📤 Upload Chest X-ray Image", type=["png", "jpg", "jpeg"])
 
