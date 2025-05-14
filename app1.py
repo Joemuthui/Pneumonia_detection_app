@@ -29,6 +29,28 @@ st.markdown("""
         border-radius: 10px;
         margin-top: 5px;
     }
+    html, body, [class*="css"]  {
+            background-color: #0E1117;
+            color: #FAFAFA;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            color: #ffffff;
+        }
+
+        .stButton>button {
+            background-color: #262730;
+            color: #FAFAFA;
+            border: 1px solid #FAFAFA;
+        }
+
+        .stFileUploader {
+            background-color: #1e1e1e;
+        }
+
+        .css-1d391kg {
+            background-color: #1e1e1e;
+        }
     </style>
 """, unsafe_allow_html=True)
 
