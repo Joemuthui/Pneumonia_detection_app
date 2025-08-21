@@ -77,7 +77,7 @@ model_id = "google/medgemma-4b-it"
 task = "image-text-to-text"
 
 # Option 1: Pass the token directly (less secure for hardcoding)
-YOUR_HF_TOKEN = "hf_YOUR_ACTUAL_TOKEN_HERE"
+YOUR_HF_TOKEN = "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"
 login(token=YOUR_HF_TOKEN)
 
 #-----Prompt ------
