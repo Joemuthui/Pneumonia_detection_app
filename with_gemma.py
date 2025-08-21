@@ -77,8 +77,7 @@ model_id = "google/medgemma-4b-it"
 task = "image-text-to-text"
 
 # Option 1: Pass the token directly (less secure for hardcoding)
-YOUR_HF_TOKEN = "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"
-login(token=YOUR_HF_TOKEN)
+# YOUR_HF_TOKEN = "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"
 
 #-----Prompt ------
 query = """Based on the attached chest X-ray, can you analyze and tell me whether the patient has a Normal, Infiltration, or Consolidation?
@@ -118,6 +117,7 @@ def preprocess_image(image):
 
 # --- App Main ---
 def main():
+    token = st.sidebar.text_input("Enter your API Token:")
     col = st.columns(3)[1]  # Center column out of 3
 
     with col:
@@ -215,6 +215,8 @@ def main():
       
         
         with st.expander("See explanation"):
+        login(token=token)
+
           output = pipe(text=messages, max_new_tokens=2048)
           response = output[0]["generated_text"][-1]["content"]
           
